@@ -1,0 +1,36 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+remote_workers_data <- read_csv("data/remote_workers.csv")
+```
+
+```{r}
+remote_workers_data <- remote_workers_data %>%
+  clean_names()
+```
+
+#Tidying data
+```{r}
+remote_workers_data_type_of_change <- remote_workers_data %>%
+  pivot_longer(c(changed_job_role, have_new_management_responsibilities, need_to_improve_or_grow_my_interpersonal_skills, need_to_learn_new_skills_but_have_not_had_the_time, feel_more_burnout_than_usual, interest_in_ongoing_professional_development, had_substantial_changes_in_my_personal_life), 
+               names_to = "type_of_change", 
+               values_drop_na = TRUE) %>%
+  select(-value)
+```
+
